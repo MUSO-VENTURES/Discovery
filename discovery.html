@@ -820,7 +820,7 @@ body {
 
   <!-- Hero -->
   <div class="hero">
-    <img src="assets/MUSO-VENTURES_Just_Icon_Logo-Color.png" alt="" style="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:90vw;height:auto;opacity:0.07;pointer-events:none;user-select:none;z-index:0;">
+    <img id="hero-watermark" src="assets/MUSO-VENTURES_Just_Icon_Logo-Color.png" alt="" style="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:85vw;height:auto;opacity:0.07;pointer-events:none;user-select:none;z-index:0;">
     <div class="hero-eyebrow">New Client Intake &mdash; Confidential</div>
     <h1 class="hero-title">LET'S UNDERSTAND<br><span>YOUR BUSINESS.</span></h1>
     <p class="hero-body">This discovery form helps us build a clear picture of where you are today, where you want to go, and how we can best support your goals.</p>
@@ -1021,6 +1021,19 @@ body {
 
 </div>
 <script>
+// Pin watermark to hero center (between 2nd & 3rd horizontal lines)
+(function() {
+  function pinWatermark() {
+    const hero = document.querySelector('.hero');
+    const wm   = document.getElementById('hero-watermark');
+    if (!hero || !wm) return;
+    const r = hero.getBoundingClientRect();
+    wm.style.top = (r.top + r.height / 2) + 'px';
+  }
+  pinWatermark();
+  window.addEventListener('resize', pinWatermark);
+})();
+
 document.getElementById('dateStamp').textContent = 'Client Discovery — ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 
 // Render full logo PNG as pure white on canvas
