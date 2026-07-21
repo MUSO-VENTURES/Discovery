@@ -87,6 +87,8 @@ body {
 /* ── Hero ── */
 .hero {
   margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
 }
 
 .hero-eyebrow {
@@ -811,10 +813,6 @@ body {
 
   <!-- Brand bar -->
   <div class="brand-bar">
-    <!-- Watermark centered between the two rules -->
-    <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;pointer-events:none;z-index:0;opacity:0.07;user-select:none;">
-      <img src="assets/MUSO-VENTURES_Just_Icon_Logo-Color.png" alt="" style="height:56px;width:auto;display:block;">
-    </div>
     <div class="brand-left" style="position:relative;z-index:1;">
       <img src="assets/MUSO-VENTURES-R3_All-Logo-White.png" alt="MUSO VENTURES" style="height:56px;width:auto;display:block;">
     </div>
@@ -823,6 +821,7 @@ body {
 
   <!-- Hero -->
   <div class="hero">
+    <img src="assets/MUSO-VENTURES_Just_Icon_Logo-Color.png" alt="" style="position:absolute;right:-60px;top:50%;transform:translateY(-50%);height:340px;width:auto;opacity:0.07;pointer-events:none;user-select:none;">
     <div class="hero-eyebrow">New Client Intake &mdash; Confidential</div>
     <h1 class="hero-title">LET'S UNDERSTAND<br><span>YOUR BUSINESS.</span></h1>
     <p class="hero-body">This discovery form helps us build a clear picture of where you are today, where you want to go, and how we can best support your goals.</p>
