@@ -1030,7 +1030,7 @@ body {
     if (!hero || !shell || !wm) return;
     const r = hero.getBoundingClientRect();
     wm.style.width = (shell.offsetWidth * 0.85) + 'px';
-    wm.style.top   = (r.top + r.height / 2 - 20) + 'px';
+    wm.style.top   = (r.top + r.height / 2 - 10) + 'px';
   }
   pinWatermark();
   window.addEventListener('resize', pinWatermark);
