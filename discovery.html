@@ -1021,14 +1021,16 @@ body {
 
 </div>
 <script>
-// Pin watermark to hero center (between 2nd & 3rd horizontal lines)
+// Pin watermark to hero center, sized to 85% of the form shell width
 (function() {
   function pinWatermark() {
-    const hero = document.querySelector('.hero');
-    const wm   = document.getElementById('hero-watermark');
-    if (!hero || !wm) return;
+    const hero  = document.querySelector('.hero');
+    const shell = document.querySelector('.shell');
+    const wm    = document.getElementById('hero-watermark');
+    if (!hero || !shell || !wm) return;
     const r = hero.getBoundingClientRect();
-    wm.style.top = (r.top + r.height / 2) + 'px';
+    wm.style.width = (shell.offsetWidth * 0.85) + 'px';
+    wm.style.top   = (r.top + r.height / 2) + 'px';
   }
   pinWatermark();
   window.addEventListener('resize', pinWatermark);
