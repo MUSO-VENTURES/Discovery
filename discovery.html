@@ -1473,6 +1473,11 @@ async function sendToFormspree(c,services) {
     _replyto:c.pEmail||c.email,
     business_name:c.clientName, industry:c.industry, years:c.years,
     phone:c.phone, email:c.email, location:c.address, website:c.website, referral:c.referral,
+    // Individual contact fields for sheet columns
+    p_name:c.pName, p_role:c.pRole, p_phone:c.pPhone, p_email:c.pEmail,
+    p_time:c.pTime, p_contact_method:c.pPref,
+    s_name:c.sName, s_role:c.sRole, s_phone:c.sPhone, s_email:c.sEmail,
+    // Combined strings for email body
     primary_contact:`${c.pName} — ${c.pRole} | ${c.pPhone} | ${c.pEmail}`+(c.pPref?` | Prefers: ${c.pPref}`:''+(c.pTime?` | ${c.pTime}`:'')),
     secondary_contact:c.sName?`${c.sName} — ${c.sRole} | ${c.sPhone} | ${c.sEmail}`:'N/A',
     opted_in:c.optin?'Yes':'No',
