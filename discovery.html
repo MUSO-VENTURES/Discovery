@@ -1067,7 +1067,6 @@ document.getElementById('dateStamp').textContent = 'Client Discovery — ' + new
   img.src = 'assets/MUSO-VENTURES-All_Logo-Color.png';
 })();
 
-const FORMSPREE = 'https://formspree.io/f/mlgkjdaz';
 const GAS_URL   = 'https://script.google.com/macros/s/AKfycbymcn3oT-opXDvz4da4qVTC91NSDo4-W-rBmm92v05XCSiNNguCvWpI0zPM-Zi-ZVo9WQ/exec';
 
 const sections = [
@@ -1481,19 +1480,11 @@ async function sendToFormspree(c,services) {
   };
   c.extras.forEach((x,i)=>{ payload[`extra_contact_${i+1}`]=`${x.name} — ${x.role} | ${x.phone} | ${x.email}`; });
 
-  // Fire Formspree + Google relay in parallel
-  const sends = [
-    fetch(FORMSPREE, {method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body:JSON.stringify(payload)})
-      .then(r=>({ok:r.ok, src:'formspree'})).catch(()=>({ok:false, src:'formspree'}))
-  ];
-  if (GAS_URL) {
-    sends.push(
-      fetch(GAS_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)})
-        .then(r=>({ok:r.ok, src:'gas'})).catch(()=>({ok:false, src:'gas'}))
-    );
-  }
-
-  const results = await Promise.all(sends);
+  // Send via Google Apps Script relay
+  const results = await Promise.all([
+    fetch(GAS_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)})
+      .then(r=>({ok:r.ok, src:'gas'})).catch(()=>({ok:false, src:'gas'}))
+  ]);
   if (results.some(r=>r.ok)) {
     btn.textContent='✓ Sent';
     btn.style.background='linear-gradient(135deg,#4ade80,#22c55e)';
