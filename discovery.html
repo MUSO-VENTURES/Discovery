@@ -863,14 +863,18 @@ body {
   <!-- Brand bar -->
   <div class="brand-bar">
     <div class="brand-left" style="position:relative;z-index:1;">
-      <img id="brandLogo" src="assets/MUSO-VENTURES-R3_All-Logo-White.png" alt="MUSO VENTURES" style="height:56px;width:auto;display:block;">
+      <img id="brandLogo" src="assets/MUSO-VENTURES-R3_All-Logo-Color.png" alt="MUSO VENTURES" style="height:56px;width:auto;display:block;">
     </div>
     <div style="display:flex;align-items:center;gap:14px;position:relative;z-index:1;">
       <div class="brand-date" id="dateStamp"></div>
       <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
-        <span class="theme-toggle-icon" id="themeIcon">☀️</span>
-        <span id="themeLabel">Light</span>
+        <span class="theme-toggle-icon" id="themeIcon">🌙</span>
+        <span id="themeLabel">Dark</span>
       </button>
+      <a href="https://muso-ventures.com" style="display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-family:'Syne',sans-serif;font-weight:700;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='';this.style.color=''">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" style="flex-shrink:0"><path d="M6.5 1.5L2 5l4.5 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back to Site
+      </a>
     </div>
   </div>
 
@@ -1210,16 +1214,14 @@ function toggleTheme() {
     : 'assets/MUSO-VENTURES-R3_All-Logo-White.png';
   localStorage.setItem('mv-theme', next);
 }
-// Restore saved theme
+// Restore saved theme (default: light)
 (function(){
-  const t = localStorage.getItem('mv-theme');
-  if(t) {
-    document.documentElement.setAttribute('data-theme', t);
-    if(t === 'light') {
-      document.getElementById('themeIcon').textContent  = '🌙';
-      document.getElementById('themeLabel').textContent = 'Dark';
-      document.getElementById('brandLogo').src = 'assets/MUSO-VENTURES-R3_All-Logo-Color.png';
-    }
+  const t = localStorage.getItem('mv-theme') || 'light';
+  document.documentElement.setAttribute('data-theme', t);
+  if(t === 'dark') {
+    document.getElementById('themeIcon').textContent  = '☀️';
+    document.getElementById('themeLabel').textContent = 'Light';
+    document.getElementById('brandLogo').src = 'assets/MUSO-VENTURES-R3_All-Logo-White.png';
   }
 })();
 
