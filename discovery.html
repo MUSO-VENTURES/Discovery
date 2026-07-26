@@ -863,7 +863,7 @@ body {
   <!-- Brand bar -->
   <div class="brand-bar">
     <div class="brand-left" style="position:relative;z-index:1;">
-      <img src="assets/MUSO-VENTURES-R3_All-Logo-White.png" alt="MUSO VENTURES" style="height:56px;width:auto;display:block;">
+      <img id="brandLogo" src="assets/MUSO-VENTURES-R3_All-Logo-White.png" alt="MUSO VENTURES" style="height:56px;width:auto;display:block;">
     </div>
     <div style="display:flex;align-items:center;gap:14px;position:relative;z-index:1;">
       <div class="brand-date" id="dateStamp"></div>
@@ -1201,13 +1201,27 @@ function onClientName(v) { clientLabel = v.trim(); }
 function toggleTheme() {
   const html = document.documentElement;
   const isDark = html.getAttribute('data-theme') !== 'light';
-  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  const next = isDark ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
   document.getElementById('themeIcon').textContent  = isDark ? '🌙' : '☀️';
-  document.getElementById('themeLabel').textContent = isDark ? 'Dark'  : 'Light';
-  localStorage.setItem('mv-theme', isDark ? 'light' : 'dark');
+  document.getElementById('themeLabel').textContent = isDark ? 'Dark' : 'Light';
+  document.getElementById('brandLogo').src = isDark
+    ? 'assets/MUSO-VENTURES-R3_All-Logo-Color.png'
+    : 'assets/MUSO-VENTURES-R3_All-Logo-White.png';
+  localStorage.setItem('mv-theme', next);
 }
 // Restore saved theme
-(function(){ const t = localStorage.getItem('mv-theme'); if(t) { document.documentElement.setAttribute('data-theme',t); if(t==='light'){document.getElementById('themeIcon').textContent='🌙';document.getElementById('themeLabel').textContent='Dark';} } })();
+(function(){
+  const t = localStorage.getItem('mv-theme');
+  if(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    if(t === 'light') {
+      document.getElementById('themeIcon').textContent  = '🌙';
+      document.getElementById('themeLabel').textContent = 'Dark';
+      document.getElementById('brandLogo').src = 'assets/MUSO-VENTURES-R3_All-Logo-Color.png';
+    }
+  }
+})();
 
 function togglePref(btn) { btn.classList.toggle('selected'); }
 
