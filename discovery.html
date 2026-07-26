@@ -25,6 +25,55 @@
   --success:     #4ade80;
 }
 
+/* ── Light theme ── */
+[data-theme="light"] {
+  --bg-1:        #F0F4F7;
+  --bg-2:        #E4EDF3;
+  --bg-3:        #D6E6EF;
+  --accent:      #2A7A94;
+  --accent-dark: #1A5F74;
+  --accent-dim:  rgba(42,122,148,0.10);
+  --accent-line: rgba(42,122,148,0.25);
+  --text:        #0D2B3E;
+  --muted:       rgba(13,43,62,0.55);
+  --card-bg:     rgba(255,255,255,0.92);
+  --surface:     rgba(13,43,62,0.04);
+  --border:      rgba(42,122,148,0.2);
+  --red:         #dc2626;
+  --success:     #16a34a;
+}
+
+[data-theme="light"] body {
+  background: linear-gradient(160deg, var(--bg-1) 0%, var(--bg-2) 55%, var(--bg-3) 100%);
+}
+
+[data-theme="light"] .avg-select option { background: #fff; color: var(--text); }
+[data-theme="light"] .finput:focus,
+[data-theme="light"] .ftextarea:focus { background: rgba(255,255,255,0.95); }
+[data-theme="light"] #hero-watermark { opacity: 0.04; }
+
+/* ── Theme toggle ── */
+.theme-toggle {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 12px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.theme-toggle-icon { font-size: 13px; line-height: 1; }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -34,6 +83,7 @@ body {
   color: var(--text);
   min-height: 100vh;
   padding: 24px 16px 80px;
+  transition: background 0.3s, color 0.3s;
 }
 
 .shell {
@@ -815,7 +865,13 @@ body {
     <div class="brand-left" style="position:relative;z-index:1;">
       <img src="assets/MUSO-VENTURES-R3_All-Logo-White.png" alt="MUSO VENTURES" style="height:56px;width:auto;display:block;">
     </div>
-    <div class="brand-date" id="dateStamp" style="position:relative;z-index:1;"></div>
+    <div style="display:flex;align-items:center;gap:14px;position:relative;z-index:1;">
+      <div class="brand-date" id="dateStamp"></div>
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+        <span class="theme-toggle-icon" id="themeIcon">☀️</span>
+        <span id="themeLabel">Light</span>
+      </button>
+    </div>
   </div>
 
   <!-- Hero -->
@@ -1142,6 +1198,17 @@ let extraCount = 0;
 let clientLabel = '';
 
 function onClientName(v) { clientLabel = v.trim(); }
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') !== 'light';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('themeIcon').textContent  = isDark ? '🌙' : '☀️';
+  document.getElementById('themeLabel').textContent = isDark ? 'Dark'  : 'Light';
+  localStorage.setItem('mv-theme', isDark ? 'light' : 'dark');
+}
+// Restore saved theme
+(function(){ const t = localStorage.getItem('mv-theme'); if(t) { document.documentElement.setAttribute('data-theme',t); if(t==='light'){document.getElementById('themeIcon').textContent='🌙';document.getElementById('themeLabel').textContent='Dark';} } })();
+
 function togglePref(btn) { btn.classList.toggle('selected'); }
 
 // Phone formatting
